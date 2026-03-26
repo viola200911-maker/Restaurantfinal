@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Столи{% endblock %}
+
+{% block content %}
+
+<h1>Доступні столи</h1>
+<div class="decor-line"></div>
+
+<div class="row">
+    {% for table in tables %}
+    <div class="col-md-4">
+        <div class="menu-card">
+            <h3>Стіл №{{ table.id }}</h3>
+            <p>Місць: {{ table.seats }}</p>
+            <a href="{{ url_for('reservation', table_id=table.id) }}" class="btn btn-custom">Забронювати</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

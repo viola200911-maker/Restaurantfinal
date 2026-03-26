@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Адмін — Усі замовлення{% endblock %}
+
+{% block content %}
+
+<h1>Усі замовлення</h1>
+<div class="decor-line"></div>
+
+<table class="table mt-4">
+    <tr>
+        <th>ID</th>
+        <th>Користувач</th>
+        <th>Дата</th>
+        <th>Сума</th>
+        <th>Статус</th>
+        <th></th>
+    </tr>
+
+    {% for order in orders %}
+    <tr>
+        <td>{{ order.id }}</td>
+        <td>{{ order.user.nickname }}</td>
+        <td>{{ order.time }}</td>
+        <td>{{ order.total }} грн</td>
+        <td>{{ order.status }}</td>
+        <td>
+            <a href="{{ url_for('admin_order_details', order_id=order.id) }}" class="btn btn-custom btn-sm">Деталі</a>
+            <form method="POST" action="{{ url_for('admin_delete_order', order_id=order.id) }}" class="d-inline"
+                onsubmit="return confirm('Видалити замовлення №{{ order.id }}?');">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-danger btn-sm ms-1">Видалити</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

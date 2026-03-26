@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Мої замовлення{% endblock %}
+
+{% block content %}
+
+<h1>Ваші замовлення</h1>
+<div class="decor-line"></div>
+
+{% for order in orders %}
+<div class="menu-card mb-3">
+    <h3>Замовлення №{{ order.id }}</h3>
+    <p><strong>Дата:</strong> {{ order.time }}</p>
+    <a href="{{ url_for('order_details', order_id=order.id) }}" class="btn btn-custom">Деталі</a>
+</div>
+{% endfor %}
+
+{% endblock %}

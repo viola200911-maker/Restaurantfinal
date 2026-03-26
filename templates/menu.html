@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Меню{% endblock %}
+
+{% block content %}
+
+<h1>Меню</h1>
+<div class="decor-line"></div>
+
+<form method="GET" class="row mb-4">
+    <div class="col-md-2">
+        <input type="text" name="search" class="form-control" placeholder="Пошук страви...">
+    </div>
+    <div class="col-md-2">
+        <input type="number" name="min_price" class="form-control" placeholder="Мін. ціна">
+    </div>
+    <div class="col-md-2">
+        <input type="number" name="max_price" class="form-control" placeholder="Макс. ціна">
+    </div>
+    <div class="col-md-2">
+        <input type="number" name="min_cal" class="form-control" placeholder="Мін. калорій">
+    </div>
+    <div class="col-md-2">
+        <input type="number" name="max_cal" class="form-control" placeholder="Макс. калорій">
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-custom w-100">Фільтрувати</button>
+    </div>
+</form>
+
+<div class="row">
+    {% for dish in dishes %}
+    <div class="col-md-4 mb-4">
+        <div class="menu-card">
+            <img src="{{ url_for('static', filename='images/menu/' + dish.image) }}" alt="{{ dish.name }}"
+                class="menu-img">
+            <h3 class="mt-3">{{ dish.name }}</h3>
+            <p>{{ dish.description }}</p>
+            <p><strong>{{ dish.price }} грн</strong></p>
+            <a href="{{ url_for('dish', dish_id=dish.id) }}" class="btn btn-custom">Детальніше</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

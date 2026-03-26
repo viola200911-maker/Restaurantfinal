@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Бронювання{% endblock %}
+
+{% block content %}
+
+<h1>Бронювання столу</h1>
+<div class="decor-line"></div>
+
+<form method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label>Дата і час:</label>
+    <input type="datetime-local" name="time" class="form-control mb-3">
+
+    <button class="btn btn-custom">Підтвердити</button>
+</form>
+
+{% endblock %}

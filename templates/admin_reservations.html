@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Адмін — Бронювання{% endblock %}
+
+{% block content %}
+
+<h1>Усі бронювання</h1>
+<div class="decor-line"></div>
+
+<table class="table mt-4">
+    <tr>
+        <th>ID</th>
+        <th>Користувач</th>
+        <th>Стіл</th>
+        <th>Дата</th>
+        <th></th>
+    </tr>
+
+    {% for r in reservations %}
+    <tr>
+        <td>{{ r.id }}</td>
+        <td>{{ r.user.nickname }}</td>
+        <td>
+            {% for t in r.tables %}
+                №{{ t.table.id }}{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </td>
+        <td>{{ r.time }}</td>
+        <td>
+            <a href="{{ url_for('admin_reservation_details', reservation_id=r.id) }}"
+                class="btn btn-custom btn-sm">Деталі</a>
+            <form method="POST" action="{{ url_for('admin_delete_reservation', reservation_id=r.id) }}" class="d-inline"
+                onsubmit="return confirm('Видалити бронювання?');">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-danger btn-sm ms-1">Видалити</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

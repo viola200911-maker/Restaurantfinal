@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}500 — Помилка сервера{% endblock %}
+
+{% block content %}
+
+<div class="text-center">
+
+    <h1 class="display-3">500</h1>
+    <div class="decor-line mx-auto"></div>
+
+    <p class="fs-4 mt-3">Сталася внутрішня помилка сервера.</p>
+    <p class="fs-5">Ми вже працюємо над її виправленням.</p>
+
+    <a href="{{ url_for('home') }}" class="btn btn-custom mt-4">Повернутись на головну</a>
+
+</div>
+
+{% endblock %}

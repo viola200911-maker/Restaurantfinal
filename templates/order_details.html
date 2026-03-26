@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Замовлення №{{ order.id }}{% endblock %}
+
+{% block content %}
+
+<h1>Замовлення №{{ order.id }}</h1>
+<div class="decor-line"></div>
+
+<p><strong>Дата:</strong> {{ order.time }}</p>
+<p><strong>Статус:</strong> {{ order.status }}</p>
+
+{% if order.note %}
+<div class="mt-3">
+    <p><strong>Примітка до замовлення:</strong></p>
+    <div
+        style="background-color: #f5f0e8; border: 1px solid #d4a574; border-left: 4px solid #8b6f47; padding: 15px; margin: 10px 0; border-radius: 4px; color: #5d4e37;">
+        {{ order.note }}
+    </div>
+</div>
+{% endif %}
+
+<h3 class="mt-4">Страви</h3>
+<ul>
+    {% for item in order.dishes %}
+    <li>{{ item.dish.name }} — {{ item.quantity }} шт. ({{ item.dish.price * item.quantity }} грн)</li>
+    {% endfor %}
+</ul>
+
+<p class="mt-3"><strong>Сума:</strong> {{ order.total }} грн</p>
+
+<a href="{{ url_for('orders') }}" class="btn btn-custom">Назад</a>
+
+{% endblock %}

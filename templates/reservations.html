@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Мої бронювання{% endblock %}
+
+{% block content %}
+
+<h1>Ваші бронювання</h1>
+<div class="decor-line"></div>
+
+{% for r in reservations %}
+<div class="menu-card mb-3">
+    <h3>Бронювання №{{ r.id }}</h3>
+    <p><strong>Дата:</strong> {{ r.time }}</p>
+    <form method="POST" action="{{ url_for('cancel_reservation', reservation_id=r.id) }}" class="d-inline">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button type="submit" class="btn btn-danger btn-sm">Скасувати</button>
+    </form>
+</div>
+{% endfor %}
+
+{% endblock %}

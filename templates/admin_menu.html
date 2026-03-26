@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Адмін — Меню{% endblock %}
+
+{% block content %}
+
+<h1>Меню ресторану</h1>
+<div class="decor-line"></div>
+
+<a href="{{ url_for('admin_add_dish') }}" class="btn btn-custom mb-3">Додати страву</a>
+
+<div class="row">
+    {% for dish in dishes %}
+    <div class="col-md-4 mb-4">
+        <div class="menu-card">
+            <img src="{{ url_for('static', filename='images/menu/' + dish.image) }}" class="menu-img">
+            <h3 class="mt-3">{{ dish.name }}</h3>
+            {% if not dish.active %}
+            <p class="text-danger mb-1"><strong>Неактивна</strong> (прихована з меню для гостей)</p>
+            {% endif %}
+            <p>{{ dish.price }} грн</p>
+            <a href="{{ url_for('admin_edit_dish', dish_id=dish.id) }}" class="btn btn-custom">Редагувати</a>
+            <form method="POST" action="{{ url_for('admin_delete_dish', dish_id=dish.id) }}" class="d-inline"
+                onsubmit="return confirm('Видалити цю страву?');">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-danger btn-sm ms-1">Видалити</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

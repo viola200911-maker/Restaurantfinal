@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% block title %}Про нас — Історичний Ресторан{% endblock %}
+
+{% block content %}
+
+<!-- Верхній банер із зображенням -->
+<div class="about-banner">
+    <img src="/static/images/restaurant.png" alt="Зал ресторану" class="about-banner-img">
+    <div class="about-banner-text">
+        <h1 style="color: white;">Історичний Ресторан</h1>
+        <p style="color: white;">Подорож крізь епохи смаку</p>
+    </div>
+</div>
+
+<div class="container mt-5">
+
+    <!-- Блок 1: Історія та концепція -->
+    <section class="about-section">
+        <h2 class="section-title">Наша концепція</h2>
+        <p class="section-text">
+            <strong>Історичний Ресторан</strong> — це унікальний ресторан, де кожен гість
+            вирушає у гастрономічну подорож крізь століття.
+            Ми поєднуємо кулінарні традиції різних епох — від величі
+            <em>Давнього Єгипту</em> та філософської гармонії <em>Давньої Греції</em>
+            до розкоші <em>Середньовіччя</em>, витонченості <em>Відродження</em>,
+            елегантності <em>ХІХ століття</em> та яскравої естетики
+            <em>XX століття</em>.
+        </p>
+
+        <p class="section-text">
+            Кожен зал нашого ресторану — це окремий світ, створений з увагою до деталей:
+            автентичні декорації, музика, освітлення та навіть форма персоналу
+            відповідають обраній епосі.
+            Ви можете вечеряти у тіні пірамід, обідати у римському атріумі,
+            насолоджуватися пастою у флорентійській залі або відчути атмосферу
+            джазових 1920-х.
+        </p>
+    </section>
+
+    <div class="decor-line"></div>
+
+    <!-- Блок 2: Зали -->
+    <section class="about-section">
+        <h2 class="section-title">Наші зали</h2>
+
+        <div class="era-grid">
+
+            <div class="era-card">
+                <h3>Давні цивілізації</h3>
+                <p>Єгипет, Греція, Рим — зали, де оживає велич античності.</p>
+            </div>
+
+            <div class="era-card">
+                <h3>Середньовіччя</h3>
+                <p>Кам’яні стіни, свічки, дерев’яні столи та атмосфера лицарських бенкетів.</p>
+            </div>
+
+            <div class="era-card">
+                <h3>Відродження</h3>
+                <p>Флорентійська елегантність, мистецтво та витончені страви.</p>
+            </div>
+
+            <div class="era-card">
+                <h3>Епохи XX століття</h3>
+                <p>Джазові 20-ті, ретро 50-ті, неонові 80-ті — кожна зала має свій характер.</p>
+            </div>
+
+            <div class="era-card">
+                <h3>Сучасність</h3>
+                <p>Мінімалізм, молекулярна кухня та футуристичні подачі.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="decor-line"></div>
+
+    <!-- Блок 3: Команда -->
+    <section class="about-section">
+        <h2 class="section-title">Наша команда</h2>
+        <p class="section-text">
+            Наш персонал — це не просто офіціанти та кухарі.
+            Це актори, історики, гастрономи та ентузіасти, які допомагають
+            створити повне занурення в атмосферу обраної епохи.
+            Кожен співробітник працює у відповідному костюмі та знає історію
+            своєї зали, щоб зробити вашу подорож ще цікавішою.
+        </p>
+    </section>
+
+    <div class="decor-line"></div>
+
+    <!-- Блок 4: Контакти -->
+    <section class="about-section">
+        <h2 class="section-title">Контактна інформація</h2>
+
+        <p class="section-text">
+            <strong>Адреса:</strong>
+            221B Chronos Avenue, Old Town District, Toronto, Canada
+        </p>
+
+        <p class="section-text">
+            <strong>Телефон:</strong> +1 (416) 555‑1937
+        </p>
+
+        <p class="section-text">
+            <strong>Email:</strong> contact@history-restaurant.ca
+        </p>
+
+        <p class="section-text">
+            <strong>Графік роботи:</strong><br>
+            Пн–Нд: 11:00 – 23:00
+        </p>
+    </section>
+
+</div>
+<style>
+    .about-banner {
+        position: relative;
+        width: 100%;
+        height: 350px;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    .about-banner-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(60%);
+    }
+
+    .about-banner-text {
+        position: absolute;
+        bottom: 30px;
+        left: 40px;
+        color: white;
+    }
+
+    .about-banner-text h1 {
+        font-size: 48px;
+        margin: 0;
+    }
+
+    .about-banner-text p {
+        font-size: 20px;
+        margin: 5px 0 0;
+    }
+
+    .about-section {
+        margin-bottom: 50px;
+    }
+
+    .section-title {
+        font-size: 32px;
+        margin-bottom: 15px;
+    }
+
+    .section-text {
+        font-size: 18px;
+        line-height: 1.6;
+    }
+
+    .decor-line {
+        width: 100%;
+        height: 2px;
+        background: #ccc;
+        margin: 40px 0;
+    }
+
+    .era-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .era-card {
+        background: #f7f7f7;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .era-card h3 {
+        margin-bottom: 10px;
+    }
+</style>
+
+{% endblock %}

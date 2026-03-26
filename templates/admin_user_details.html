@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Адмін — Користувач {{ user.nickname }}{% endblock %}
+
+{% block content %}
+
+<h1>Користувач: {{ user.nickname }}</h1>
+<div class="decor-line"></div>
+
+<h3 class="mt-4">Основна інформація</h3>
+<p><strong>ID:</strong> {{ user.id }}</p>
+<p><strong>Email:</strong> {{ user.email }}</p>
+<p><strong>Адмін:</strong> {{ "Так" if user.status_admin else "Ні" }}</p>
+
+{% if user.id != current_user.id %}
+<form method="POST" action="{{ url_for('admin_toggle_user_status', user_id=user.id) }}" class="d-inline">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button type="submit" class="btn btn-warning btn-sm">
+        {{ "Забрати права адміна" if user.status_admin else "Зробити адміністратором" }}
+    </button>
+</form>
+<form method="POST" action="{{ url_for('admin_delete_user', user_id=user.id) }}" class="d-inline ms-2"
+    onsubmit="return confirm('Видалити користувача {{ user.nickname }}? Цю дію не скасувати.');">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button type="submit" class="btn btn-danger btn-sm">Видалити користувача</button>
+</form>
+{% endif %}
+
+<div class="decor-line mt-4"></div>
+
+<h3 class="mt-4">Замовлення користувача</h3>
+
+{% if orders %}
+<table class="table mt-3">
+    <tr>
+        <th>ID</th>
+        <th>Дата</th>
+        <th>Сума</th>
+        <th></th>
+    </tr>
+
+    {% for order in orders %}
+    <tr>
+        <td>{{ order.id }}</td>
+        <td>{{ order.time }}</td>
+        <td>{{ order.total }} грн</td>
+        <td>
+            <a href="{{ url_for('admin_order_details', order_id=order.id) }}" class="btn btn-custom btn-sm">Деталі</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>Замовлень немає.</p>
+{% endif %}
+
+<div class="decor-line mt-4"></div>
+
+<h3 class="mt-4">Бронювання користувача</h3>
+
+{% if reservations %}
+<table class="table mt-3">
+    <tr>
+        <th>ID</th>
+        <th>Дата</th>
+        <th>Стіл(и)</th>
+        <th></th>
+    </tr>
+
+    {% for r in reservations %}
+    <tr>
+        <td>{{ r.id }}</td>
+        <td>{{ r.time }}</td>
+        <td>
+            {% for t in r.tables %}
+            Стіл №{{ t.table_id }}{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </td>
+        <td>
+            <a href="{{ url_for('admin_reservation_details', reservation_id=r.id) }}"
+                class="btn btn-custom btn-sm">Деталі</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>Бронювань немає.</p>
+{% endif %}
+
+<div class="decor-line mt-4"></div>
+
+<a href="{{ url_for('admin_users') }}" class="btn btn-custom mt-3">Назад до списку користувачів</a>
+
+{% endblock %}

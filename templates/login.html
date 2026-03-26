@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Вхід{% endblock %}
+
+{% block content %}
+
+<h1>Вхід</h1>
+<div class="decor-line"></div>
+
+<form method="POST" class="mt-4">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <label>Email або нікнейм:</label>
+    <input type="text" name="email_or_nickname" class="form-control mb-3">
+
+    <label>Пароль:</label>
+    <input type="password" name="password" class="form-control mb-3">
+
+    <button class="btn btn-custom w-100">Увійти</button>
+
+</form>
+
+<p class="mt-3">
+    Немає акаунта?
+    <a href="{{ url_for('register') }}">Зареєструйтесь</a>
+</p>
+
+<p class="mt-2">
+    <a href="{{ url_for('forgot_password') }}">Забули пароль?</a>
+</p>
+
+{% endblock %}

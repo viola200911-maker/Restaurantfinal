@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мій Проєкт{% endblock %}</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <style>
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .avatar-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+        }
+    </style>
+
+    {% block extra_css %}
+    <style>
+        /* ---------------------- */
+        /* ГЛОБАЛЬНА ТЕМА САЙТУ   */
+        /* ---------------------- */
+
+        body {
+            background: #f4f1e8;
+            /* теплий історичний фон */
+            font-family: "Georgia", "Times New Roman", serif;
+            color: #2c2c2c;
+        }
+
+        /* Контейнер */
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Заголовки */
+        h1,
+        h2,
+        h3 {
+            font-family: "Cinzel", serif;
+            letter-spacing: 1px;
+            color: #3b2f2f;
+        }
+
+        /* Декоративна лінія */
+        .decor-line {
+            width: 120px;
+            height: 3px;
+            background: #8b6f47;
+            margin: 10px 0 20px 0;
+            border-radius: 2px;
+        }
+
+        /* ---------------------- */
+        /* КНОПКИ                 */
+        /* ---------------------- */
+
+        .btn-custom {
+            background: #8b6f47;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .btn-custom:hover {
+            background: #a88a5f;
+            transform: translateY(-2px);
+        }
+
+        /* ---------------------- */
+        /* ФОРМИ                  */
+        /* ---------------------- */
+
+        input,
+        textarea,
+        select {
+            border: 1px solid #c8b79b;
+            border-radius: 6px;
+            padding: 10px;
+            background: #fffdf8;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #8b6f47;
+            box-shadow: 0 0 5px rgba(139, 111, 71, 0.4);
+        }
+
+        /* ---------------------- */
+        /* АВАТАРКИ               */
+        /* ---------------------- */
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #8b6f47;
+        }
+
+        .avatar-circle {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            border: 2px solid #8b6f47;
+        }
+
+        /* ---------------------- */
+        /* КАРТОЧКИ СТРАВ         */
+        /* ---------------------- */
+
+        .menu-card {
+            background: #fffdf8;
+            border: 1px solid #d8c9b3;
+            border-radius: 12px;
+            padding: 15px;
+            transition: 0.3s;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Фото страв */
+        .menu-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* ---------------------- */
+        /* НАВІГАЦІЯ              */
+        /* ---------------------- */
+
+        .navbar {
+            background: #3b2f2f !important;
+        }
+
+        /* Bootstrap ставить space-between — через це перший лінк зліва, останній справа */
+        .navbar>.container {
+            justify-content: flex-start !important;
+        }
+
+        .navbar .navbar-brand {
+            color: #000000 !important;
+            font-family: "Cinzel", serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-right: 0.35rem;
+            text-shadow: none;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .navbar .navbar-brand:hover,
+        .navbar .navbar-brand:focus {
+            color: #3b2f2f !important;
+            transform: translateY(-1px);
+        }
+
+        .navbar .navbar-user {
+            color: #000000 !important;
+            font-weight: 600;
+            text-shadow: none;
+        }
+    </style>
+    {% endblock %}
+</head>
+
+<body>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="alert alert-{{res}}">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    <nav class="navbar navbar-dark bg-dark mb-4">
+        <div class="container d-flex flex-wrap align-items-center gap-2 gap-md-3">
+
+            {% if current_user.is_authenticated %}
+
+            {% if current_user.avatar_image %}
+            <img src="{{ url_for('static', filename='images/profile/' + current_user.avatar_image) }}" class="avatar">
+            {% else %}
+            <div class="avatar-circle" style="background: {{ current_user.avatar_color }}">
+                {{ current_user.avatar_letter }}
+            </div>
+            {% endif %}
+
+            <span class="ms-1 navbar-user me-2 me-md-3">{{ current_user.nickname }}</span>
+
+            <a class="navbar-brand py-1" href="{{ url_for('about_us') }}">Про нас</a>
+            <a class="navbar-brand py-1" href="{{ url_for('home_page') }}">Головна</a>
+            <a class="navbar-brand py-1" href="{{ url_for('menu') }}">Меню</a>
+            <a class="navbar-brand py-1" href="{{ url_for('cart') }}">Кошик</a>
+            <a class="navbar-brand py-1" href="{{ url_for('tables') }}">Столи</a>
+            <a class="navbar-brand py-1" href="{{ url_for('orders') }}">Замовлення</a>
+            <a class="navbar-brand py-1" href="{{ url_for('reservations') }}">Бронювання</a>
+            <a class="navbar-brand py-1" href="{{ url_for('profile') }}">Профіль</a>
+            {% if current_user.status_admin %}
+            <a class="navbar-brand py-1" href="{{ url_for('admin_dashboard') }}">Адмін</a>
+            {% endif %}
+            <a class="navbar-brand py-1" href="javascript:void(0)" onclick="confirmLogout()">Вийти</a>
+
+            {% else %}
+
+            <a class="navbar-brand py-1" href="{{ url_for('about_us') }}">Про нас</a>
+            <a class="navbar-brand py-1" href="{{ url_for('login') }}">Увійти</a>
+            <a class="navbar-brand py-1" href="{{ url_for('register') }}">Зареєструватись</a>
+
+            {% endif %}
+
+        </div>
+    </nav>
+
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    {% block extra_js %}
+    <script>
+        // Плавна поява елементів при скролі
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("fade-in");
+                }
+            });
+        });
+
+        document.querySelectorAll(".menu-card").forEach(el => {
+            observer.observe(el);
+        });
+
+        // Підтвердження виходу - тільки для кнопки "Вийти"
+        function confirmLogout() {
+            if (confirm('Ви впевнені, що хочете вийти з системи?')) {
+                window.location.href = '{{ url_for("logout") }}';
+            }
+        }
+    </script>
+
+    <style>
+        .fade-in {
+            opacity: 1;
+            transform: translateY(0);
+            transition: 0.8s ease;
+        }
+    </style>
+    {% endblock %}
+</body>
+
+</html>

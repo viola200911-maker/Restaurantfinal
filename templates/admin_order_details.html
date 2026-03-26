@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Адмін — Замовлення №{{ order.id }}{% endblock %}
+
+{% block content %}
+
+<h1>Замовлення №{{ order.id }}</h1>
+<div class="decor-line"></div>
+
+<p><strong>Користувач:</strong> {{ order.user.nickname }}</p>
+<p><strong>Дата:</strong> {{ order.time }}</p>
+<p><strong>Статус:</strong> {{ order.status }}</p>
+
+{% if order.note %}
+<div class="mt-3">
+    <p><strong>Примітка до замовлення:</strong></p>
+    <div
+        style="background-color: #f5f0e8; border: 1px solid #d4a574; border-left: 4px solid #8b6f47; padding: 15px; margin: 10px 0; border-radius: 4px; color: #5d4e37;">
+        {{ order.note }}
+    </div>
+</div>
+{% endif %}
+
+<h3 class="mt-4">Страви</h3>
+<ul>
+    {% for item in order.dishes %}
+    <li>{{ item.dish.name }} — {{ item.quantity }} шт. ({{ item.dish.price * item.quantity }} грн)</li>
+    {% endfor %}
+</ul>
+
+<p class="mt-3"><strong>Сума:</strong> {{ order.total }} грн</p>
+
+<h3 class="mt-4">Змінити статус</h3>
+
+<form method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <select name="status" class="form-control mb-3">
+        <option value="Прийнято">Прийнято</option>
+        <option value="Готується">Готується</option>
+        <option value="Доставляється">Доставляється</option>
+        <option value="Завершено">Завершено</option>
+    </select>
+
+    <button class="btn btn-custom">Оновити</button>
+</form>
+
+<form method="POST" action="{{ url_for('admin_delete_order', order_id=order.id) }}" class="mt-4"
+    onsubmit="return confirm('Видалити це замовлення?');">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button type="submit" class="btn btn-danger">Видалити замовлення</button>
+</form>
+
+{% endblock %}

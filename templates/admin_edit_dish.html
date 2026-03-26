@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Редагувати страву{% endblock %}
+
+{% block content %}
+
+<h1>Редагування страви</h1>
+<div class="decor-line"></div>
+
+<form method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <label>Назва:</label>
+    <input type="text" name="name" class="form-control mb-3" value="{{ dish.name }}">
+
+    <label>Опис:</label>
+    <textarea name="description" class="form-control mb-3">{{ dish.description }}</textarea>
+
+    <label>Інгредієнти:</label>
+    <textarea name="ingredients" class="form-control mb-3">{{ dish.ingredients }}</textarea>
+
+    <label>Ціна:</label>
+    <input type="number" name="price" class="form-control mb-3" value="{{ dish.price }}" step="0.01">
+
+    <label>Вага (г):</label>
+    <input type="number" name="weight" class="form-control mb-3" value="{{ dish.weight }}" step="0.1">
+
+    <label>Калорійність (ккал):</label>
+    <input type="number" name="cal" class="form-control mb-3" value="{{ dish.cal }}">
+
+    <label>Фото:</label>
+    <input type="file" name="file" class="form-control mb-3" accept="image/*">
+    <small class="text-muted">Поточне фото: {{ dish.image }}</small>
+
+    <button class="btn btn-custom">Зберегти</button>
+
+</form>
+
+{% endblock %}

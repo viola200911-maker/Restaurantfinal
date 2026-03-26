@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Оформлення замовлення{% endblock %}
+
+{% block content %}
+
+<h1>Підтвердження замовлення</h1>
+<div class="decor-line"></div>
+
+<p>Перевірте інформацію перед підтвердженням.</p>
+
+<form method="POST" action="{{ url_for('confirm_order') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <label>Примітка до замовлення (необов'язково):</label>
+    <textarea name="note" class="form-control mb-3" rows="3" placeholder="Введіть примітку до замовлення..."></textarea>
+
+    <button class="btn btn-custom">Підтвердити</button>
+</form>
+
+{% endblock %}

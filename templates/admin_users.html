@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Адмін — Користувачі{% endblock %}
+
+{% block content %}
+
+<h1>Користувачі</h1>
+<div class="decor-line"></div>
+
+<table class="table mt-4">
+    <tr>
+        <th>ID</th>
+        <th>Нікнейм</th>
+        <th>Email</th>
+        <th>Статус</th>
+        <th></th>
+    </tr>
+
+    {% for user in users %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.nickname }}</td>
+        <td>{{ user.email }}</td>
+        <td>{% if user.status_admin %}Адмін{% else %}Користувач{% endif %}</td>
+        <td>
+            <a href="{{ url_for('admin_user_details', user_id=user.id) }}" class="btn btn-custom btn-sm">Деталі</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

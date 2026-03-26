@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Адмін-панель{% endblock %}
+
+{% block content %}
+
+<h1>Адмін-панель</h1>
+<div class="decor-line"></div>
+
+<div class="row mt-4">
+
+    <div class="col-md-4">
+        <div class="menu-card">
+            <h3>Користувачі</h3>
+            <p>Перегляд, редагування, блокування.</p>
+            <a href="{{ url_for('admin_users') }}" class="btn btn-custom">Перейти</a>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="menu-card">
+            <h3>Меню</h3>
+            <p>Страви, категорії, зображення.</p>
+            <a href="{{ url_for('admin_menu') }}" class="btn btn-custom">Перейти</a>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="menu-card">
+            <h3>Замовлення</h3>
+            <p>Управління замовленнями.</p>
+            <a href="{{ url_for('admin_orders') }}" class="btn btn-custom">Перейти</a>
+        </div>
+    </div>
+
+</div>
+
+<div class="row mt-4">
+
+    <div class="col-md-6">
+        <div class="menu-card">
+            <h3>Столи</h3>
+            <p>Додавання та редагування столів.</p>
+            <a href="{{ url_for('admin_tables') }}" class="btn btn-custom">Перейти</a>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="menu-card">
+            <h3>Бронювання</h3>
+            <p>Перегляд усіх бронювань.</p>
+            <a href="{{ url_for('admin_reservations') }}" class="btn btn-custom">Перейти</a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

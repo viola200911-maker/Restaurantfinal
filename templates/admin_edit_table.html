@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Редагувати стіл{% endblock %}
+
+{% block content %}
+
+<h1>Редагування столу №{{ table.id }}</h1>
+<div class="decor-line"></div>
+
+<form method="POST" class="mt-4">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <label>Кількість місць:</label>
+    <input type="number" name="seats" class="form-control mb-3" value="{{ table.seats }}">
+
+    <label>Локація (зала):</label>
+    <input type="text" name="location" class="form-control mb-3" value="{{ table.location or '' }}">
+
+    <button class="btn btn-custom mt-3">Зберегти зміни</button>
+
+</form>
+
+{% endblock %}

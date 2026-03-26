@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Додати страву{% endblock %}
+
+{% block content %}
+
+<h1>Додати нову страву</h1>
+<div class="decor-line"></div>
+
+<form method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <label>Назва:</label>
+    <input type="text" name="name" class="form-control mb-3" required>
+
+    <label>Опис:</label>
+    <textarea name="description" class="form-control mb-3"></textarea>
+
+    <label>Інгредієнти:</label>
+    <textarea name="ingredients" class="form-control mb-3"></textarea>
+
+    <label>Ціна:</label>
+    <input type="number" name="price" class="form-control mb-3" step="0.01" required>
+
+    <label>Вага (г):</label>
+    <input type="number" name="weight" class="form-control mb-3" step="0.1" required>
+
+    <label>Калорійність (ккал):</label>
+    <input type="number" name="cal" class="form-control mb-3" required>
+
+    <label>Фото:</label>
+    <input type="file" name="file" class="form-control mb-3" accept="image/*">
+
+    <button class="btn btn-custom">Додати</button>
+
+</form>
+
+{% endblock %}

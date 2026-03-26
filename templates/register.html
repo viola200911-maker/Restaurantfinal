@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Реєстрація{% endblock %}
+
+{% block content %}
+
+<h1>Реєстрація</h1>
+<div class="decor-line"></div>
+
+<form method="POST" class="mt-4">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <label>Нікнейм:</label>
+    <input type="text" name="nickname" class="form-control mb-3">
+
+    <label>Email:</label>
+    <input type="email" name="email" class="form-control mb-3">
+
+    <label>Пароль:</label>
+    <input type="password" name="password" class="form-control mb-3">
+
+    <button class="btn btn-custom w-100">Створити акаунт</button>
+
+</form>
+
+{% endblock %}

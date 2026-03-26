@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Головна — Історичний Ресторан{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center">Ласкаво просимо до Історичного Ресторану</h1>
+<div class="decor-line mx-auto"></div>
+
+<p class="text-center fs-5">
+    Подорож крізь епохи — від античності до сучасності.
+    Оберіть залу, яка перенесе вас у часі.
+</p>
+
+<div class="row mt-4">
+
+    <div class="col-md-4">
+        <div class="menu-card">
+            <img src="/static/images/ancient.jpg" class="menu-img">
+            <h3 class="mt-3">Античність</h3>
+            <p>Смакуйте страви Давнього Єгипту, Греції та Риму.</p>
+            <a href="{{ url_for('menu') }}" class="btn btn-custom">Переглянути меню</a>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="menu-card">
+            <img src="/static/images/medieval.jpg" class="menu-img">
+            <h3 class="mt-3">Середньовіччя</h3>
+            <p>Бенкети, м’ясні страви, медові напої та атмосфера замків.</p>
+            <a href="{{ url_for('menu') }}" class="btn btn-custom">Переглянути меню</a>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="menu-card">
+            <img src="/static/images/modern.jpg" class="menu-img">
+            <h3 class="mt-3">Сучасність</h3>
+            <p>Вишукана кухня XXI століття та стильний інтер’єр.</p>
+            <a href="{{ url_for('menu') }}" class="btn btn-custom">Переглянути меню</a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
